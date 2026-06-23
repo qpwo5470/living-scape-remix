@@ -203,6 +203,63 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
   .lane{grid-template-columns:110px 1fr}
   #dots{display:none}
 }
+
+/* holographic disc (reference: bibimbeats onboarding) */
+.disc-holder{margin:14px auto 0;width:150px;height:150px;border-radius:30px;background:#eceae6;
+  display:grid;place-items:center;box-shadow:inset 0 2px 10px rgba(0,0,0,.06),0 10px 22px rgba(0,0,0,.08)}
+.holo{width:108px;height:108px;border-radius:50%;position:relative;flex:none;
+  background:conic-gradient(from 0deg,#ff5d5d,#ffd24d,#5dff97,#4dd2ff,#b86bff,#ff5db0,#ff5d5d);
+  box-shadow:0 3px 12px rgba(0,0,0,.22)}
+.holo::after{content:"";position:absolute;inset:37%;border-radius:50%;background:#f3f4f1;box-shadow:0 0 0 3px rgba(0,0,0,.14)}
+.holo::before{content:"";position:absolute;inset:46%;border-radius:50%;background:#c9c9c9;z-index:2}
+.holo.big{width:118px;height:118px;animation:spin 7s linear infinite}
+.disc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px;width:100%;place-items:center}
+.disc-grid .holo{width:50px;height:50px}
+.disc-grid .holo:nth-child(2){filter:hue-rotate(60deg)}
+.disc-grid .holo:nth-child(3){filter:hue-rotate(140deg)}
+.disc-grid .holo:nth-child(4){filter:hue-rotate(210deg)}
+.disc-grid .holo:nth-child(5){filter:hue-rotate(280deg)}
+.disc-grid .holo:nth-child(6){filter:hue-rotate(330deg)}
+
+/* foldable detail: trigger button */
+.detail-btn{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:9px 16px;border-radius:30px;
+  border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);font-size:13px;cursor:pointer;
+  transition:.2s;font-family:var(--font)}
+.detail-btn:hover{border-color:var(--mint);color:var(--mint);background:rgba(54,224,166,.06)}
+.detail-btn .pl{font-family:var(--disp);font-size:16px;line-height:1}
+
+/* bottom sheet */
+.sheet-back{position:fixed;inset:0;z-index:70;background:rgba(3,6,5,.55);backdrop-filter:blur(3px);
+  opacity:0;pointer-events:none;transition:.3s}
+.sheet-back.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;left:50%;bottom:0;z-index:71;width:min(780px,96vw);max-height:84vh;
+  transform:translateX(-50%) translateY(102%);display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#0e1513,#0a0f0e);border:1px solid var(--line);border-bottom:0;
+  border-radius:24px 24px 0 0;box-shadow:0 -30px 80px rgba(0,0,0,.6);
+  transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.sheet.open{transform:translateX(-50%) translateY(0)}
+.sheet .grab{width:42px;height:4px;border-radius:3px;background:rgba(255,255,255,.16);margin:10px auto 2px}
+.sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 24px 16px;border-bottom:1px solid var(--line)}
+.sheet-head .k{font-family:var(--disp);font-size:11px;letter-spacing:.22em;color:var(--mint);text-transform:uppercase}
+.sheet-head h3{font-size:19px;font-weight:600;margin-top:6px}
+.sheet-close{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);
+  width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:17px;flex:none;line-height:1}
+.sheet-close:hover{color:var(--ink);border-color:var(--ink)}
+.sheet-body{padding:4px 22px 28px;overflow-y:auto}
+.acc{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;cursor:pointer;padding:16px 4px;display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:15px;font-weight:600;color:var(--ink)}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .pm{flex:none;width:23px;height:23px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:var(--mint);transition:.25s;font-size:15px}
+.acc[open] summary .pm{transform:rotate(45deg);border-color:var(--mint)}
+.acc .ac-body{padding:0 4px 18px;color:#c2cbc6;font-size:14px;line-height:1.72}
+.acc .ac-body ul{margin:9px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.acc .ac-body li{padding-left:16px;position:relative}
+.acc .ac-body li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--mint);opacity:.7}
+.acc .ac-body .mini{color:var(--muted);font-size:12.5px;margin-top:6px}
+.acc .ac-body b{color:var(--ink)}
+.tagrow{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.tagrow span{font-size:12px;border:1px solid var(--line);border-radius:20px;padding:4px 11px;color:#b9c2bd}
+.map-arrow{color:var(--mint);font-weight:700;margin:0 4px}
 </style>
 </head>
 <body>
@@ -214,6 +271,17 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
   <span class="lab">음성 가이드</span>
 </button>
 <div id="subtitle"></div>
+
+<!-- foldable detail bottom sheet -->
+<div class="sheet-back" id="sheetBack"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetT">
+  <div class="grab"></div>
+  <div class="sheet-head">
+    <div><span class="k" id="sheetK"></span><h3 id="sheetT"></h3></div>
+    <button class="sheet-close" id="sheetClose" aria-label="닫기">✕</button>
+  </div>
+  <div class="sheet-body" id="sheetBody"></div>
+</aside>
 
 <nav id="dots"></nav>
 
@@ -243,7 +311,8 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
   <div class="stage">
     <div class="wrap">
       <div class="center"><span class="kicker">Experience Flow</span>
-      <h2 class="title mt16">하나의 여정, 세 단계</h2></div>
+      <h2 class="title mt16">하나의 여정, 세 단계</h2>
+      <button class="detail-btn" data-detail="flow"><span class="pl">＋</span> 단계별 상세 보기</button></div>
       <div class="flow-grid">
         <div class="flow-line"><i id="flowLine"></i></div>
         <div class="fcard a" data-fc><div class="fn">01</div><h3>프로필 생성</h3><p>QR 접속 후 이름·연령대·주거 형태 등 개인 프로필 입력. RPG형 튜토리얼로 안내.</p></div>
@@ -262,19 +331,22 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
         <span class="tag">STEP 1 · QR 코드 스캔</span>
         <h2 class="title mt16">접속하고, 나를 입력하고,<br>여정을 안내받습니다</h2>
         <p class="lead mt16">관람객은 QR로 웹페이지에 접속해 간단한 프로필을 만듭니다. 이어 RPG 게임처럼 친근한 캐릭터가 등장해 전체 존과 참여 방법을 안내하고 지도를 펼쳐 보입니다.</p>
-        <div class="mt24" id="onbSteps" style="display:flex;flex-direction:column;gap:10px"></div>
+        <button class="detail-btn" data-detail="onboarding"><span class="pl">＋</span> 프로필 · 튜토리얼 상세</button>
       </div>
       <div class="phone">
         <div class="notch"></div>
         <div class="scr">
-          <!-- screen 1 profile -->
+          <!-- screen 1 : disc selection (reference style) -->
           <div class="screen" data-os style="opacity:1">
             <div class="bar"><span>9:41</span><span>● ● ●</span></div>
-            <div style="font-weight:700;font-size:16px;margin-top:4px">Welcome to [untitled]</div>
-            <div class="profile-disc"></div>
-            <div class="inp">이름을 입력하세요</div>
-            <div class="inp">연령대 · 주거 형태</div>
-            <div class="btn-dark">프로필 완성</div>
+            <div style="font-weight:700;font-size:16px;margin-top:2px">Welcome to [untitled]</div>
+            <div class="disc-holder"><div class="holo big"></div></div>
+            <div style="font-size:12.5px;color:#888;margin-top:10px">Choose a disc</div>
+            <div class="disc-grid">
+              <div class="holo"></div><div class="holo"></div><div class="holo"></div>
+              <div class="holo"></div><div class="holo"></div><div class="holo"></div>
+            </div>
+            <div class="btn-dark" style="margin-top:14px">Continue</div>
           </div>
           <!-- screen 2 RPG -->
           <div class="screen" data-os>
@@ -306,7 +378,8 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
   <div class="stage">
     <div class="wrap">
       <div class="center"><span class="tag">STEP 2 · 각 존별 QR 스캔</span>
-      <h2 class="title mt16">4개의 존, 4번의 선택</h2></div>
+      <h2 class="title mt16">4개의 존, 4번의 선택</h2>
+      <button class="detail-btn" data-detail="zones"><span class="pl">＋</span> 설문 흐름 · 체험 인증 상세</button></div>
       <div class="zones-grid">
         <div class="zcard zone-ms" data-zc><div class="glow"></div><div class="zi">ZONE 01</div><h3>MS 존</h3><div class="role">→ 장르 / Genre</div><ul><li>TV · 그램 · 게이밍 모니터</li><li>가장 인상 깊은 제품 선택</li><li>디자인·화질·성능·가격</li></ul></div>
         <div class="zcard zone-hs" data-zc><div class="glow"></div><div class="zi">ZONE 02</div><h3>HS 존</h3><div class="role">→ 리드 멜로디 / Lead</div><ul><li>일상 속 제품 경험</li><li>생활 장면을 직접 표현</li><li>곡의 중심 멜로디로 반영</li></ul></div>
@@ -340,7 +413,8 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
     <div class="wrap">
       <div class="center"><span class="kicker">The Core</span>
       <h2 class="title mt16">선택이 곧, 음악이 됩니다</h2>
-      <p class="lead mt16" style="margin-inline:auto;text-align:center">AI가 무작위로 만드는 곡이 아니라, 미리 제작한 16개 트랙을 조합하는 <b style="color:var(--ink)">리믹스</b> 방식입니다.</p></div>
+      <p class="lead mt16" style="margin-inline:auto;text-align:center">AI가 무작위로 만드는 곡이 아니라, 미리 제작한 16개 트랙을 조합하는 <b style="color:var(--ink)">리믹스</b> 방식입니다.</p>
+      <button class="detail-btn" data-detail="music"><span class="pl">＋</span> 존 → 파트 매핑 상세</button></div>
       <div class="lanes">
         <div class="lane l1"><div class="lname"><b>GENRE</b><span>MS 존 · 장르</span></div><div class="track"><div class="fill" data-lane></div></div></div>
         <div class="lane l2"><div class="lname"><b>LEAD</b><span>HS 존 · 리드</span></div><div class="track"><div class="fill" data-lane></div></div></div>
@@ -360,7 +434,8 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
   <div class="stage">
     <div class="wrap">
       <div class="center"><span class="tag">STEP 3 · 맞춤 콘텐츠 다운로드</span>
-      <h2 class="title mt16">당신의 이름으로, 단 하나의 곡</h2></div>
+      <h2 class="title mt16">당신의 이름으로, 단 하나의 곡</h2>
+      <button class="detail-btn" data-detail="download"><span class="pl">＋</span> 앨범 · 기념품 상세</button></div>
       <div class="dl-stage mt24">
         <div class="album" id="album">
           <div class="art">
@@ -582,6 +657,43 @@ h2.title{font-size:clamp(28px,4.4vw,52px);font-weight:700;line-height:1.15;lette
   addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(update)},{passive:true});
   addEventListener('resize',()=>{if(!raf)raf=requestAnimationFrame(update)});
   update();
+
+  // ---- foldable detail drawer (text only, no narration) ----
+  const acc=(t,b,open)=>`<details class="acc"${open?' open':''}><summary>${t}<span class="pm">+</span></summary><div class="ac-body">${b}</div></details>`;
+  const DETAILS={
+    flow:{k:'Experience Flow',t:'단계별 상세',h:
+      acc('1 · QR 코드 스캔','<ul><li><b>Step 1.</b> 개인 프로필 생성 — 이름·연령대·주거 형태·추구하는 삶 등 입력</li><li><b>Step 2.</b> 튜토리얼 &amp; 가이드 — 전체 존 설명 및 참여 방법 안내</li></ul>',true)+
+      acc('2 · 각 존별 QR 스캔','<ul><li><b>Step 1.</b> 각 존 방문 후 QR 스캔</li><li><b>Step 2.</b> 존 설명 메시지와 함께 미션 수령</li><li><b>Step 3.</b> 미션 완료 후 서베이 진행</li><li><b>Step 4.</b> 각 결과값이 음악에 반영</li></ul>')+
+      acc('3 · 맞춤 콘텐츠 다운로드','<ul><li><b>Step 1.</b> 4개 존 체험 완료 후 음악 생성</li><li><b>Step 2.</b> 음악 다운로드 완료</li><li><b>Step 3.</b> 기념품 수령 룰렛 진행</li></ul>')},
+    onboarding:{k:'Step 1 · 온보딩',t:'프로필 · 튜토리얼 상세',h:
+      acc('프로필 입력 항목','QR로 웹페이지에 접속한 뒤 간단한 개인 프로필을 입력해 자신의 참여 페이지를 완성합니다.<div class="tagrow"><span>이름</span><span>연령대</span><span>주거 형태</span><span>추구하는 삶</span></div>',true)+
+      acc('튜토리얼 &amp; 가이드','전체 존 설명과 참여 방법을 안내합니다. RPG 게임처럼 대화형으로 친근하게 유도하고, 체험 맵을 노출합니다.')+
+      acc('캐릭터 대사 예시','"안녕하세요!~ 클로이드의 멋진 오케스트라 연주, 잘 보셨나요? 이제는 여러분의 음악을 직접 만들어 보실 시간이에요. 이곳은 영감으로 가득하답니다."<div class="mini">응답 선택지(멋있었음 · 음악이 좋음 …)를 통해 자연스럽게 데이터를 확보합니다.</div>')+
+      acc('화면 톤앤매너','홀로그래픽 디스크 기반의 음악 앱 UI를 지향합니다. 디스크를 고르고(Choose a disc) 사용자명을 정하는 미니멀한 구성. <span class="mini">(레퍼런스: bibimbeats 스타일)</span>')},
+    zones:{k:'Step 2 · 존 미션',t:'설문 흐름 · 체험 인증 상세',h:
+      acc('설문 흐름 예시 — MS 존','<ul><li>"안녕하세요, 여기는 <b>MS 존</b>입니다"</li><li>"가장 관심있던 제품을 선택해주세요" <span class="map-arrow">→</span> TV · 그램 노트북 · 게이밍 모니터 · 사운드 스윗</li><li>"[TV] 어떤 점이 마음에 드셨나요?" <span class="map-arrow">→</span> 디자인 · 화질 · 성능 · 가격</li></ul>',true)+
+      acc('데이터 설계 의도','단순 설문이 아니라, 관람객이 자신의 <b>Living Scape Remix</b>를 완성하기 위한 선택 과정으로 설계됩니다. 그 결과 제품 선호도와 기능 관심 데이터를 자연스럽게 수집할 수 있습니다.')+
+      acc('체험 인증 액션','기념품만 노린 무작위 응답을 방지하기 위해 각 존에 간단한 체험 인증을 추가합니다.<ul><li>특정 제품의 스펙보드 촬영</li><li>프로모터 설명을 듣고 키워드 확인</li><li>인상 깊었던 기능 선택</li></ul><div class="mini">예) "W6를 찾아가세요 → 두께 확인 → <b>0mm Class</b>" 키워드를 입력해야 다음 화면으로 넘어갑니다.</div>')+
+      acc('확장 가능성','현재는 제품 군 단위로 구성. 추후 모델명까지 세분화해 더 정교한 데이터를 수집할 수 있습니다.')},
+    music:{k:'The Core · 음악 매핑',t:'존 → 파트 매핑 상세',h:
+      acc('MS 존 → Genre (장르)','콘텐츠·사운드·게이밍 등 MS 존에서 발견한 경험이 곡의 전체 분위기와 장르를 결정합니다.',true)+
+      acc('HS 존 → Lead (리드 멜로디)','일상 속 제품 경험이 곡의 중심 멜로디가 되어, 생활의 장면을 가장 직접적으로 표현합니다.')+
+      acc('AI Home 존 → Bass (베이스)','AI Home이 생활 전체를 연결하고 받쳐주는 기반이 되듯, 음악에서도 안정적인 베이스로 기능합니다.')+
+      acc('SIGNATURE 존 → Rhythm &amp; Texture','프리미엄 라이프스타일의 절제된 속도와 감각이 곡의 리듬과 질감을 완성합니다.')+
+      acc('생성 방식 — 리믹스','AI로 무작위 생성하는 곡이 아니라, 원래 있던 음악을 <b>리믹스</b>하는 개념입니다. 존당 4개씩 총 <b>16개 트랙</b>을 제작해 조합 → 4×4 = <b>256가지</b> Living Scape Remix.')},
+    download:{k:'Step 3 · 다운로드',t:'앨범 · 기념품 상세',h:
+      acc('완성 음악','개인화된 앨범 아트워크와 GIF로 표시됩니다. 참여자 이름이 반영되어 <b>Tuned by [이름]</b> 형태(예: Tuned by James)로 전달되며, 음악 길이는 15~20초입니다.',true)+
+      acc('Save — 음악 저장','Save 버튼을 누르면 완성된 음악을 다운로드할 수 있습니다.')+
+      acc('Gift — 기념품','Gift 버튼은 기프트 받는 곳을 안내합니다. 별도 장소에서 <b>레코드 룰렛</b>을 돌려 기념품을 수령합니다.')}
+  };
+  const sBack=document.getElementById('sheetBack'), sheetEl=document.getElementById('sheet');
+  const sBody=document.getElementById('sheetBody'), sK=document.getElementById('sheetK'), sT=document.getElementById('sheetT');
+  function openSheet(key){const dd=DETAILS[key];if(!dd)return;sK.textContent=dd.k;sT.textContent=dd.t;sBody.innerHTML=dd.h;sBody.scrollTop=0;sBack.classList.add('open');sheetEl.classList.add('open');document.documentElement.style.overflow='hidden';}
+  function closeSheet(){sBack.classList.remove('open');sheetEl.classList.remove('open');document.documentElement.style.overflow='';}
+  document.querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openSheet(b.getAttribute('data-detail'));}));
+  document.getElementById('sheetClose').addEventListener('click',closeSheet);
+  sBack.addEventListener('click',closeSheet);
+  addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
 })();
 </script>
 </body>
