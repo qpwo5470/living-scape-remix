@@ -154,7 +154,7 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
 .zcard .glow{position:absolute;inset:0;border-radius:18px;border:1px solid var(--mint);opacity:0;box-shadow:0 0 30px rgba(90,209,255,.25),0 0 0 1px var(--mint) inset}
 .zone-ms{--zc:#1f9fcf}.zone-hs{--zc:#3f6fe0}.zone-ai{--zc:#9a54e0}.zone-sg{--zc:#e0731f}
 .zcard .role{color:var(--zc)}.zcard .glow{border-color:var(--zc);box-shadow:0 0 30px var(--zc),0 0 0 1px var(--zc) inset}
-.mission{margin-top:28px;display:flex;gap:22px;align-items:center;flex-wrap:wrap;opacity:0;transform:translateY(20px)}
+.mission{margin-top:14px;display:flex;gap:26px;align-items:center;flex-wrap:wrap;opacity:0;transform:translateY(20px)}
 .mission .mtxt{flex:1;min-width:260px}
 .kw{display:inline-block;background:#fff04d;color:#111;font-weight:700;padding:4px 12px;border-radius:8px;font-family:var(--disp);margin:0 2px;box-shadow:0 0 24px rgba(255,240,77,.4)}
 
@@ -239,13 +239,13 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
 .sheet-back{position:fixed;inset:0;z-index:70;background:rgba(3,6,5,.55);backdrop-filter:blur(3px);
   opacity:0;pointer-events:none;transition:.3s}
 .sheet-back.open{opacity:1;pointer-events:auto}
-.sheet{position:fixed;left:50%;bottom:0;z-index:71;width:min(780px,96vw);max-height:84vh;
-  transform:translateX(-50%) translateY(102%);display:flex;flex-direction:column;
-  background:#faf9f6;border:1px solid var(--line);border-bottom:0;
-  border-radius:24px 24px 0 0;box-shadow:0 -30px 80px rgba(0,0,0,.22);
-  transition:transform .4s cubic-bezier(.22,1,.36,1)}
-.sheet.open{transform:translateX(-50%) translateY(0)}
-.sheet .grab{width:42px;height:4px;border-radius:3px;background:rgba(0,0,0,.18);margin:10px auto 2px}
+.sheet{position:fixed;top:0;right:0;z-index:71;width:min(400px,92vw);height:100vh;
+  transform:translateX(106%);display:flex;flex-direction:column;
+  background:rgba(250,249,246,.97);backdrop-filter:blur(8px);border-left:1px solid var(--line);
+  box-shadow:-26px 0 70px rgba(0,0,0,.16);
+  transition:transform .42s cubic-bezier(.22,1,.36,1)}
+.sheet.open{transform:translateX(0)}
+.sheet .grab{display:none}
 .sheet-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:12px 24px 16px;border-bottom:1px solid var(--line)}
 .sheet-head .k{font-family:var(--disp);font-size:11px;letter-spacing:.22em;color:var(--mint);text-transform:uppercase}
 .sheet-head h3{font-size:19px;font-weight:600;margin-top:6px}
@@ -398,14 +398,35 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
           <h3 style="font-size:20px;font-weight:600">단순 응답이 아닌, <span style="color:var(--mint)">체험 인증</span></h3>
           <p class="lead mt8" style="font-size:16px">제품을 직접 찾아 키워드를 확인해야 다음 화면으로 넘어갑니다. 예) <span class="kw">W6</span> 를 찾아 두께 <span class="kw">0mm Class</span> 확인 — 실제 경험 기반의 유효한 데이터가 쌓입니다.</p>
         </div>
-        <div class="phone" style="transform:scale(.78);transform-origin:center">
+        <div class="phone" style="transform:scale(.72);transform-origin:center">
           <div class="notch"></div>
           <div class="scr">
-            <div class="screen" style="opacity:1">
+            <div class="screen" data-zs style="opacity:1">
               <div class="bar"><span>9:41</span><span>● ● ●</span></div>
-              <div class="bubble" style="margin-top:30px">안녕하세요, 여기는 <b>MS 존</b>입니다</div>
-              <div style="font-weight:700;margin-top:24px;text-align:center">W6를 찾아가세요.<br>두께를 확인해 주세요.</div>
+              <div class="bubble" style="margin-top:44px">안녕하세요, 여기는 <b>MS 존</b>입니다 👋</div>
+              <div class="bubble">미션을 시작해 볼까요?</div>
+            </div>
+            <div class="screen" data-zs>
+              <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+              <div style="font-weight:700;font-size:15px;margin-top:10px;text-align:center">가장 관심있던 제품을<br>선택해주세요</div>
+              <div class="choice">1. TV</div>
+              <div class="choice">2. 그램 노트북</div>
+              <div class="choice">3. 게이밍 모니터</div>
+              <div class="choice">4. 사운드 스윗</div>
+            </div>
+            <div class="screen" data-zs>
+              <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+              <div style="font-weight:700;font-size:15px;margin-top:10px;text-align:center">[TV] 어떤 점이<br>마음에 드셨나요?</div>
+              <div class="choice">1. 디자인</div>
+              <div class="choice">2. 화질</div>
+              <div class="choice">3. 성능</div>
+              <div class="choice">4. 가격</div>
+            </div>
+            <div class="screen" data-zs>
+              <div class="bar"><span>9:41</span><span>● ● ●</span></div>
+              <div style="font-weight:700;margin-top:40px;text-align:center">W6를 찾아가세요.<br>두께를 확인해 주세요.</div>
               <div class="btn-dark" style="background:#fff04d;color:#111;font-weight:700;margin-top:24px">0mm Class</div>
+              <div style="font-size:11.5px;color:#888;margin-top:14px;text-align:center">키워드 입력 시 다음 단계로</div>
             </div>
           </div>
         </div>
@@ -513,6 +534,7 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
   const onbScreens=[...document.querySelectorAll('#onboarding [data-os]')];
   const zcards=[...document.querySelectorAll('#zones [data-zc]')];
   const mission=document.getElementById('mission');
+  const zScreens=[...document.querySelectorAll('#zones [data-zs]')];
   const lanes=[...document.querySelectorAll('#music .lane .fill')];
   const comboNum=document.getElementById('comboNum');
   const album=document.getElementById('album');
@@ -549,12 +571,19 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
     },
     zones(p){
       zcards.forEach((c,i)=>{
-        const r=seg(p,.06+i*.13,.24+i*.13);
+        const r=seg(p,.04+i*.1,.2+i*.1);
         c.style.opacity=r;c.style.transform='translateY('+lerp(34,0,r)+'px)';
-        c.querySelector('.glow').style.opacity=seg(p,.18+i*.13,.34+i*.13)*.9;
+        c.querySelector('.glow').style.opacity=seg(p,.12+i*.1,.28+i*.1)*.9;
       });
-      const m=seg(p,.74,.92);
+      const m=seg(p,.5,.62);
       mission.style.opacity=m;mission.style.transform='translateY('+lerp(20,0,m)+'px)';
+      // phone: step-by-step progression (greeting → product → feature → mission)
+      const t=seg(p,.58,.99)*4, stops=[0.5,1.5,2.5,3.5];
+      zScreens.forEach((sc,i)=>{
+        let o=clamp(1-Math.abs(t-stops[i])/0.8,0,1);
+        if(i===0&&t<0.5)o=1; if(i===zScreens.length-1&&t>3.5)o=1;
+        sc.style.opacity=o;
+      });
     },
     music(p){
       lanes.forEach((f,i)=>{
@@ -599,7 +628,7 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
   tickBars();
 
   // ---- audio / narration ----  (defined before scroll loop so onActive exists)
-  let current=null;
+  let current=null, panelOpen=false;
   const SUB={
     hero:'리빙 스케이프 리믹스. QR 코드 스캔으로 시작해, 나만의 음악으로 완성되는 LG 전관 인터랙티브 체험입니다.',
     flow:'체험은 크게 세 단계로 진행됩니다. 프로필 생성, 존별 미션, 그리고 맞춤 음악 완성.',
@@ -630,7 +659,7 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
       a.onended=()=>{ if(playingId===id){hideSub();} };
     }
   }
-  function onActive(sc){ if(enabled) playScene(sc.id); }
+  function onActive(sc){ if(enabled) playScene(sc.id); if(panelOpen && DETAILS[sc.id]) openSheet(sc.id); }
 
   soundBtn.addEventListener('click',()=>{
     enabled=!enabled;
@@ -693,13 +722,13 @@ h2.title{font-size:clamp(28px,4.4vw,48px);font-weight:700;line-height:1.15;lette
       acc('Save — 음악 저장','Save 버튼을 누르면 완성된 음악을 다운로드할 수 있습니다.')+
       acc('Gift — 기념품','Gift 버튼은 기프트 받는 곳을 안내합니다. 별도 장소에서 <b>레코드 룰렛</b>을 돌려 기념품을 수령합니다.')}
   };
-  const sBack=document.getElementById('sheetBack'), sheetEl=document.getElementById('sheet');
+  const sheetEl=document.getElementById('sheet'), dotsNav=document.getElementById('dots');
   const sBody=document.getElementById('sheetBody'), sK=document.getElementById('sheetK'), sT=document.getElementById('sheetT');
-  function openSheet(key){const dd=DETAILS[key];if(!dd)return;sK.textContent=dd.k;sT.textContent=dd.t;sBody.innerHTML=dd.h;sBody.scrollTop=0;sBack.classList.add('open');sheetEl.classList.add('open');document.documentElement.style.overflow='hidden';}
-  function closeSheet(){sBack.classList.remove('open');sheetEl.classList.remove('open');document.documentElement.style.overflow='';}
-  document.querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();openSheet(b.getAttribute('data-detail'));}));
+  let detailKey=null;
+  function openSheet(key){const dd=DETAILS[key];if(!dd)return;detailKey=key;panelOpen=true;sK.textContent=dd.k;sT.textContent=dd.t;sBody.innerHTML=dd.h;sBody.scrollTop=0;sheetEl.classList.add('open');if(dotsNav){dotsNav.style.opacity='0';dotsNav.style.pointerEvents='none';}}
+  function closeSheet(){panelOpen=false;detailKey=null;sheetEl.classList.remove('open');if(dotsNav){dotsNav.style.opacity='';dotsNav.style.pointerEvents='';}}
+  document.querySelectorAll('[data-detail]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();const k=b.getAttribute('data-detail');if(panelOpen&&detailKey===k)closeSheet();else openSheet(k);}));
   document.getElementById('sheetClose').addEventListener('click',closeSheet);
-  sBack.addEventListener('click',closeSheet);
   addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
 })();
 </script>
